@@ -1,42 +1,30 @@
-/* --- COLORTABLE ---
- *  Text:
- *  #574A44 (Blackish)
- *  #F3F3F3 (Whiteish)
- *  #FFDE4D (Yellowish)
- *  cornflowerblue (Blueish)
- *
- *  Background Colors (Layout) :
- *  .color1 { background-color: #EEEEEE; }
- *  .color2 { background-color: white; }
- *  .color3 { background-color: black; }
- *  .color4 { background-color: #242424; }
- *  .color5 { background-color: #801C00; }
- *  .color6 { background-color: #400E00; }
- *  petrol = #005f6A
- *  khaki = #A18C75
- *  pistazie = #D3DE99
- */
+/* Variables */
 
-/* --- FONTS ---
- *
- *  raleway
- *  spectral sc
- *
- *
- *
- *
- */
-
- /* Variables */
-
- /* Font size (Type scale) */
+ /* Font size (Type scale) starting on phones in portrait mode */
 :root {
     --base-size: 1rem;
-    --type-scale: 1.25;
+    --type-scale: 1.35;
+    --links-figcaption: var(--base-size);
     --text: calc(var(--links-figcaption) * var(--type-scale));
-    --links-figcaption: calc(var(--base-size) * var(--type-scale));
+    --h5: calc(var(--text) * var(--type-scale));
+    --h4: calc(var(--h5) * var(--type-scale));
+    --h3: calc(var(--h4) * var(--type-scale));
+    --h2: calc(var(--h3) * var(--type-scale));
     --h1: calc(var(--h2) * var(--type-scale));
-    --h2: calc(var(--base-size) / var(--type-scale));
+}
+
+/* Phones in landscape mode and tablets */
+@media (min-width: 576px) {
+    :root {
+        --type-scale: 1.30;
+    }
+}
+
+/* Desktop size */
+@media (min-width: 992px) {
+    :root {
+        --type-scale: 1.25;
+    }
 }
 
  /* Change Box Model */
@@ -65,30 +53,53 @@ body {
 
 /* Navigation and text under pictures */
 figcaption, a {
-    font-size: 16px;
+    font-size: var(--links-figcaption);
 }
 
 /* Normal textsize */
 p, span, i, main a, hr {
-    font-size: 20px;
+    font-size: var(--text);
 }
 
 /* Big headline */
 h1 {
     font-family: 'Spectral SC', serif;
-    font-size: 65px;
+    font-size: var(--h1);
     text-shadow: 4px 2px rgba(255, 255, 255, 0.300);
     color: white;
     border: 5px solid white;
     box-shadow: 4px 2px rgba(255, 255, 255, 0.300);
-    padding: 0.5rem;
+    padding: 0.6rem 0 0.6rem 0.6rem;
+}
+
+h1 span {
+    color: #342B2C;
+    font-size: var(--h1);
+    text-shadow: 4px 2px rgba(52, 43, 44, 0.500);
+    background-color: white;
+    padding-right: 0.6rem;
+    margin-left: 5px;
 }
 
 /* Article headlines */
 h2 {
     font-family: 'Spectral SC', serif;
-    font-size: 45px;
+    font-size: var(--h2);
     text-shadow: 2px 1px rgb(61, 61, 61);
+}
+
+/* Headlines footer/others */
+h3 {
+    font-family: 'Spectral SC', serif;
+    font-size: var(--h3);
+    text-shadow: 2px 1px rgba(255, 255, 255, 0.300);
+}
+
+/* Copyright footer */
+h4 {
+    font-family: 'Spectral SC', serif;
+    font-size: var(--h4);
+    text-shadow: 2px 1px rgba(255, 255, 255, 0.300);
 }
 
 /* END      --- Website Layout */
@@ -165,6 +176,7 @@ nav a {
 nav a:hover {
     background-color: #242424;
     text-decoration: underline;
+    cursor: pointer;
 }
 
 nav .triangle-finish {
@@ -253,24 +265,26 @@ main .news a:hover {
 /* START    --- Article text */
 
 main .news {
-
-    
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-around;
-    align-items: flex-start;
-    text-align: justify;
     margin: 1rem 0;
 }
 
 main .news img {
     width: 40%;
+    min-width: 400px;
+    float: left;
+    margin-right: 2%;
+}
+
+main .news img::after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 main .news p {
-    margin: 0;
+    text-align: justify;
+    margin: 0 0 1rem 0;
     padding: 0;
-    width: 55%;
 }
 
 /* END      --- Article text */
@@ -304,30 +318,77 @@ hr::after {
     background-color: #F1F1EF;
 }
 
+main article:last-child::after {
+    display: block;
+    color:#CCC;
+    content: "\002A \002A \002A \002A \002A";
+    font-size: 50px;
+    letter-spacing: 25px;
+    line-height: 1;
+    font-size: 5rem;
+    font-family: Arial, serif;
+    margin: .64em 0;
+    text-align: center;
+    text-indent: 25px;
+}
+
 /* END      --- Seperation of articles */
 /* END      --- Main */
 /* START    --- Footer */
 
 footer {
-    color: white;
+    color: #F1F1EF;
     background: #342B2C;
-    background-repeat: no-repeat;
     grid-column: 1/5;
     grid-row: 3/4;
     display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-end;
+    padding: 1rem 0;
+}
+
+footer i {
+    font-size: var(--h3);
+}
+
+footer .footer-wrapper {
+    display: flex;
     flex-flow: row nowrap;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    width: 85%;
 }
 
-footer .footer {
-    flex-basis: 75%;
-    border: 1px yellow solid;
+footer .copyright {
+    flex: 0 0 20%;
 }
 
-footer .legal {
-    flex-basis: 20%;
-    border: 1px blue solid;
+footer .map {
+    margin: 0 1rem;
+}
+
+footer .social-media {
+    flex: 0 0 25%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    text-align: center;
+}
+
+footer .social-media h3 {
+    text-decoration: underline;
+    margin: 0 0 2rem 0;
+}
+
+footer .sm-links a {
+    color: #F1F1EF;
+    font-size: 30px;
+    margin: 0 0.5rem;
+}
+
+footer .sm-links a:hover {
+    color: #FB6C3B;
+    cursor: pointer;
 }
 
 /* END      --- Footer */
